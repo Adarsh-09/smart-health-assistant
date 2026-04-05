@@ -33,8 +33,8 @@ export function MetricCards({ heartRate, steps, sleepHours }: MetricCardsProps) 
       animate="show"
       className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
     >
-      <motion.div variants={item}>
-        <Card className="glass group hover:glow transition-all duration-500 hover:-translate-y-1">
+      <motion.div variants={item} whileHover={{ y: -5, scale: 1.02 }} className="transition-all duration-300">
+        <Card className="glass group hover:glow transition-colors duration-500 hover:shadow-2xl h-full">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors">
               Heart Rate
@@ -63,8 +63,8 @@ export function MetricCards({ heartRate, steps, sleepHours }: MetricCardsProps) 
         </Card>
       </motion.div>
 
-      <motion.div variants={item}>
-        <Card className="glass group hover:glow transition-all duration-500 hover:-translate-y-1">
+      <motion.div variants={item} whileHover={{ y: -5, scale: 1.02 }} className="transition-all duration-300">
+        <Card className="glass group hover:glow transition-colors duration-500 hover:shadow-2xl h-full">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors">
               Steps Today
@@ -102,8 +102,8 @@ export function MetricCards({ heartRate, steps, sleepHours }: MetricCardsProps) 
         </Card>
       </motion.div>
 
-      <motion.div variants={item}>
-        <Card className="glass group hover:glow transition-all duration-500 hover:-translate-y-1 sm:col-span-2 lg:col-span-1">
+      <motion.div variants={item} whileHover={{ y: -5, scale: 1.02 }} className="transition-all duration-300 sm:col-span-2 lg:col-span-1">
+        <Card className="glass group hover:glow transition-colors duration-500 hover:shadow-2xl h-full">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors">
               Sleep Duration

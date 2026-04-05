@@ -53,7 +53,7 @@ export function Hero() {
   }
 
   const features = [
-    { icon: Activity, label: "Activity", gradient: "from-blue-500 to-cyan-400" },
+    { icon: Activity, label: "Fitness Activity", gradient: "from-blue-500 to-cyan-400" },
     { icon: Heart, label: "Heart Rate", gradient: "from-red-500 to-pink-400" },
     { icon: Moon, label: "Sleep", gradient: "from-indigo-500 to-purple-400" },
     { icon: Watch, label: "Smartwatch", gradient: "from-emerald-500 to-green-400" },
@@ -66,8 +66,17 @@ export function Hero() {
         ref={bgRef}
         className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
       >
-        <div
-          className="relative left-1/2 -z-10 aspect-1155/678 w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary to-accent-foreground opacity-20 sm:w-[72.1875rem]"
+        <motion.div
+          animate={{
+            rotate: [30, 45, 30],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="relative left-1/2 -z-10 aspect-1155/678 w-[36.125rem] max-w-none -translate-x-1/2 bg-gradient-to-tr from-primary to-accent-foreground opacity-20 sm:w-[72.1875rem]"
           style={{
             clipPath:
               "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
@@ -77,7 +86,7 @@ export function Hero() {
 
       <motion.div
         ref={textRef}
-        className="container px-6 lg:px-8"
+        className="container mx-auto px-6 lg:px-8"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -138,9 +147,21 @@ export function Hero() {
                   whileHover={{ scale: 1.15, y: -4 }}
                   className="flex flex-col items-center gap-2 cursor-pointer"
                 >
-                  <div className={`p-3 rounded-2xl bg-gradient-to-br ${feat.gradient} shadow-lg`}>
+                  <motion.div
+                    animate={{
+                      y: [0, -8, 0],
+                      scale: [1, 1.05, 1],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: Math.random() * 2, // Staggered floating effect
+                    }}
+                    className={`p-3 rounded-2xl bg-gradient-to-br ${feat.gradient} shadow-lg`}
+                  >
                     <feat.icon className="h-8 w-8 text-white" />
-                  </div>
+                  </motion.div>
                   <span className="text-sm font-medium">{feat.label}</span>
                 </motion.div>
               ))}

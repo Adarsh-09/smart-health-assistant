@@ -17,7 +17,7 @@ interface ConnectWatchProps {
 export function ConnectWatch({ dataSource, lastSyncAt, onSync }: ConnectWatchProps) {
   const searchParams = useSearchParams()
   const [isConnecting, setIsConnecting] = useState(false)
-  const [isConnected, setIsConnected] = useState(dataSource === "google_fit")
+  const isConnected = dataSource === "google_fit"
 
   useEffect(() => {
     const error = searchParams.get("error")
@@ -39,7 +39,13 @@ export function ConnectWatch({ dataSource, lastSyncAt, onSync }: ConnectWatchPro
     try {
       const res = await fetch("/api/googlefit", { method: "POST" })
       const data = await res.json()
-      if (data.success) onSync()
+      if (data.success) {
+        onSync()
+        // Automatically smoothly scroll the viewport down to the active metrics dashboard when finished
+        setTimeout(() => {
+          document.getElementById("vitality-metrics")?.scrollIntoView({ behavior: "smooth", block: "start" })
+        }, 300)
+      }
     } catch (error) {
       console.error("Resync failed:", error)
     } finally {
@@ -52,7 +58,7 @@ export function ConnectWatch({ dataSource, lastSyncAt, onSync }: ConnectWatchPro
       <CardHeader className="pb-3">
         <CardTitle className="text-sm font-bold text-muted-foreground flex items-center gap-2">
           <Watch className="h-4 w-4 text-primary" />
-          Smartwatch Sync
+          Health Data Sync
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -82,15 +88,16 @@ export function ConnectWatch({ dataSource, lastSyncAt, onSync }: ConnectWatchPro
               <Button
                 onClick={handleResync}
                 disabled={isConnecting}
-                variant="outline"
-                className="w-full glass border-white/10 rounded-2xl h-11"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground border-transparent rounded-2xl h-11 glow shadow-lg whitespace-normal h-auto py-2"
               >
                 {isConnecting ? (
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin shrink-0" />
                 ) : (
-                  <RefreshCw className="h-4 w-4 mr-2" />
+                  <RefreshCw className="h-4 w-4 mr-2 shrink-0" />
                 )}
-                {isConnecting ? "Syncing..." : "Re-sync Data"}
+                <span className="text-sm">
+                  {isConnecting ? "Fetching Data & AI Analysis..." : "Fetch health data from smartwatch using Google Fit"}
+                </span>
               </Button>
             </motion.div>
           ) : (

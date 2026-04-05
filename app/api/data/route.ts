@@ -2,6 +2,8 @@ import { NextResponse } from "next/server"
 import { getDb } from "@/lib/mongodb"
 import { DEFAULT_USER_ID } from "@/lib/db-schema"
 
+export const dynamic = "force-dynamic"
+
 export interface HealthData {
   heartRate: number
   steps: number
@@ -47,10 +49,14 @@ function generateSleepHistory(): { day: string; value: number }[] {
 }
 
 export async function GET() {
+  let isGoogleFitConnected = false
+
   try {
-    // Try to fetch real data from MongoDB first
     const db = await getDb()
     if (db) {
+      const user = await db.collection("users").findOne({ userId: DEFAULT_USER_ID })
+      isGoogleFitConnected = !!user?.googleTokens?.refreshToken
+
       const stored = await db
         .collection("healthData")
         .findOne({ userId: DEFAULT_USER_ID })
@@ -65,7 +71,7 @@ export async function GET() {
           screenTimeMinutes: stored.screenTimeMinutes,
           meals: stored.meals,
           timestamp: stored.timestamp,
-          dataSource: stored.source,
+          dataSource: isGoogleFitConnected ? "google_fit" : stored.source,
           lastSyncAt: stored.timestamp,
           heartRateHistory: stored.heartRateHistory,
           stepsHistory: stored.stepsHistory,
@@ -84,7 +90,7 @@ export async function GET() {
     steps: generateRandomValue(1000, 10000),
     sleepHours: parseFloat((Math.random() * 5 + 3).toFixed(1)),
     timestamp: new Date().toISOString(),
-    dataSource: "simulated",
+    dataSource: isGoogleFitConnected ? "google_fit" : "simulated",
     heartRateHistory: generateHeartRateHistory(),
     stepsHistory: generateStepsHistory(),
     sleepHistory: generateSleepHistory(),

@@ -106,7 +106,7 @@ export function ManualEntryForm({ onSubmit }: ManualEntryFormProps) {
             ) : isSuccess ? (
               <><CheckCircle2 className="h-4 w-4 mr-2" /> Saved!</>
             ) : (
-              "Save Health Data"
+              "Analyse Health Metrics"
             )}
           </Button>
         </form>

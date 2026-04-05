@@ -41,9 +41,9 @@ export async function GET(request: Request) {
       )
     }
 
-    return NextResponse.redirect(new URL("/#dashboard", request.url))
+    return NextResponse.redirect(new URL("/#vitality-metrics", request.url))
   } catch (error) {
     console.error("OAuth token exchange error:", error)
-    return NextResponse.redirect(new URL("/#dashboard?error=OAuthFailed", request.url))
+    return NextResponse.redirect(new URL("/#vitality-metrics?error=OAuthFailed", request.url))
   }
 }

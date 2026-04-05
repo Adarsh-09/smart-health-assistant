@@ -107,17 +107,22 @@ export function Chatbot({ healthData, analysis }: ChatbotProps) {
             exit={{ scale: 0, opacity: 0 }}
             className="fixed bottom-6 right-6 z-50"
           >
-            <Button
-              onClick={() => setIsOpen(true)}
-              className="h-16 w-16 rounded-2xl shadow-2xl bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 hover:scale-110 glow group"
-              size="icon"
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              <MessageCircle className="h-8 w-8 group-hover:rotate-12 transition-transform" />
-              <div className="absolute -top-1 -right-1 flex h-4 w-4">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-foreground opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-4 w-4 bg-accent-foreground"></span>
-              </div>
-            </Button>
+              <Button
+                onClick={() => setIsOpen(true)}
+                className="h-16 w-16 rounded-2xl shadow-2xl bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 hover:scale-110 glow group"
+                size="icon"
+              >
+                <MessageCircle className="h-8 w-8 group-hover:rotate-12 transition-transform" />
+                <div className="absolute -top-1 -right-1 flex h-4 w-4">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-foreground opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-4 w-4 bg-accent-foreground"></span>
+                </div>
+              </Button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

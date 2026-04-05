@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect } from "react"
 import { motion } from "framer-motion"
 import { useHealthData, useAnalysis } from "@/hooks/use-health-data"
 import { Header } from "./header"
@@ -53,7 +54,6 @@ function DataSourceBadge({ source }: { source: string }) {
   const Icon = config.icon
   return (
     <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border ${config.color}`}>
-      <Icon className="h-3 w-3" />
       {config.label}
     </div>
   )
@@ -62,6 +62,16 @@ function DataSourceBadge({ source }: { source: string }) {
 export function Dashboard() {
   const { data, isLoading, refresh } = useHealthData()
   const { analysis } = useAnalysis(data)
+
+  useEffect(() => {
+    if (!isLoading && data && window.location.hash === "#vitality-metrics") {
+      setTimeout(() => {
+        document.getElementById("vitality-metrics")?.scrollIntoView({ behavior: "smooth", block: "start" })
+        // Clear the hash to securely stop it from re-scrolling back down later accidentally
+        window.history.replaceState(null, "", window.location.pathname)
+      }, 500)
+    }
+  }, [isLoading, data])
 
   if (isLoading || !data) {
     return <LoadingSkeleton />
@@ -102,14 +112,6 @@ export function Dashboard() {
         </div>
       </motion.div>
 
-      <motion.div variants={itemVariants}>
-        <MetricCards
-          heartRate={data.heartRate}
-          steps={data.steps}
-          sleepHours={data.sleepHours}
-        />
-      </motion.div>
-
       {/* Data Sources Section */}
       <ScrollSection animation="fade-up">
         <ScrollStagger className="grid gap-6 lg:grid-cols-2" stagger={0.15}>
@@ -121,6 +123,14 @@ export function Dashboard() {
           <ManualEntryForm onSubmit={() => refresh()} />
         </ScrollStagger>
       </ScrollSection>
+
+      <motion.div variants={itemVariants} id="vitality-metrics" className="scroll-mt-24">
+        <MetricCards
+          heartRate={data.heartRate}
+          steps={data.steps}
+          sleepHours={data.sleepHours}
+        />
+      </motion.div>
 
       {/* Health Score + Alerts */}
       <ScrollSection animation="fade-up">

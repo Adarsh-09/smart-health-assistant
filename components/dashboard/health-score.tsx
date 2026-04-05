@@ -1,6 +1,7 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { useEffect } from "react"
+import { motion, useMotionValue, useTransform, animate } from "framer-motion"
 import { TrendingUp, TrendingDown, Minus, Activity } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -61,6 +62,14 @@ export function HealthScore({ score, status }: HealthScoreProps) {
   const radius = 70
   const circumference = 2 * Math.PI * radius
 
+  const count = useMotionValue(0)
+  const rounded = useTransform(count, Math.round)
+
+  useEffect(() => {
+    const animation = animate(count, score, { duration: 1.5, ease: "easeOut" })
+    return animation.stop
+  }, [score, count])
+
   return (
     <Card className="glass overflow-hidden">
       <CardHeader>
@@ -105,7 +114,7 @@ export function HealthScore({ score, status }: HealthScoreProps) {
               animate={{ opacity: 1, y: 0 }}
               className={`text-5xl font-extrabold tracking-tighter ${getStatusColor()}`}
             >
-              {score}
+              {rounded}
             </motion.span>
             <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-1">
               Health Index
