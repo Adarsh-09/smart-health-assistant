@@ -5,6 +5,7 @@ export interface Alert {
   type: "danger" | "warning" | "info"
   title: string
   message: string
+  suggestions: string[]
 }
 
 export interface Insight {
@@ -98,6 +99,11 @@ function generateAlerts(
       type: "danger",
       title: "High Heart Rate",
       message: `Your resting heart rate is ${heartRate} BPM, which is above normal range.`,
+      suggestions: [
+        "Practice deep breathing or meditation",
+        "Avoid caffeine or stimulants",
+        "Contact a doctor if persists"
+      ]
     })
   }
 
@@ -107,6 +113,11 @@ function generateAlerts(
       type: "danger",
       title: "Insufficient Sleep",
       message: `You only slept ${sleepHours} hours. This may affect your health and performance.`,
+      suggestions: [
+        "Take a short power nap (max 20 min)",
+        "Avoid intense exercise today",
+        "Set a consistent sleep schedule"
+      ]
     })
   } else if (sleepHours < 6) {
     alerts.push({
@@ -114,6 +125,11 @@ function generateAlerts(
       type: "warning",
       title: "Low Sleep Duration",
       message: `You slept ${sleepHours} hours. Consider getting more rest tonight.`,
+      suggestions: [
+        "Avoid blue light/screens before bed",
+        "Ensure a cool, dark sleeping environment",
+        "Avoid heavy meals tonight"
+      ]
     })
   }
 
@@ -123,6 +139,11 @@ function generateAlerts(
       type: "warning",
       title: "Low Activity",
       message: `Only ${steps.toLocaleString()} steps today. Try to move more!`,
+      suggestions: [
+        "Try a 10-minute active stretch",
+        "Take the stairs instead of the elevator",
+        "Go for a short walk after your next meal"
+      ]
     })
   }
 
@@ -132,6 +153,11 @@ function generateAlerts(
       type: "info",
       title: "Low Heart Rate",
       message: `Your heart rate is ${heartRate} BPM. This could indicate excellent fitness or bradycardia.`,
+      suggestions: [
+        "Monitor for any dizziness or fatigue",
+        "Check with a doctor if you feel lightheaded",
+        "Keep track of physical activity intensity"
+      ]
     })
   }
 

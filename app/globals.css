@@ -143,4 +143,38 @@
   .glow {
     @apply shadow-[0_0_30px_rgba(255,255,255,0.05)];
   }
+
+  @keyframes radar-pulse {
+    0% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 0.5; }
+  }
+
+  @keyframes radar-ripple {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+  }
+
+  .animate-radar-pulse {
+    animation: radar-pulse 2s infinite ease-in-out;
+  }
+
+  .animate-radar-ripple {
+    animation: radar-ripple 2s infinite cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .radar-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .radar-ring {
+    position: absolute;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+  }
 }

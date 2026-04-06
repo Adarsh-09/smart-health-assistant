@@ -93,16 +93,33 @@ export function AlertsPanel({ alerts }: AlertsPanelProps) {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm font-bold text-foreground truncate mr-2">
+                      <span className="text-base font-bold text-foreground truncate mr-2">
                         {alert.title}
                       </span>
                       <Badge variant="outline" className={cn("text-[10px] font-bold tracking-widest", styles.badge)}>
                         {alert.type.toUpperCase()}
                       </Badge>
                     </div>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                       {alert.message}
                     </p>
+                    
+                    {alert.suggestions && alert.suggestions.length > 0 && (
+                      <div className="mt-2 pt-3 border-t border-white/5">
+                        <p className="text-xs font-bold uppercase tracking-wider text-primary mb-3 flex items-center gap-1.5">
+                          <CheckCircle className="h-3.5 w-3.5" />
+                          Suggested Actions
+                        </p>
+                        <ul className="space-y-2 list-none">
+                          {alert.suggestions.map((suggestion, sIdx) => (
+                            <li key={sIdx} className="text-sm text-muted-foreground flex items-center gap-2.5">
+                              <span className="h-1.5 w-1.5 rounded-full bg-primary/60 shrink-0" />
+                              {suggestion}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               )

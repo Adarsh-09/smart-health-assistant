@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     if (healthData) {
       contextMsg = `\nCurrent vitals: HR ${healthData.heartRate} BPM, ${healthData.steps} steps, ${healthData.sleepHours}h sleep.`
     }
-    const message = `⚠️ HEALTH ALERT: ${name} may need immediate help. Reason: ${alertType || "Emergency button pressed"}.${contextMsg}\n\nPlease check on them immediately. — HealthAI`
+    const message = `⚠️ HEALTH ALERT: ${name} may need immediate help. Reason: ${alertType || "Emergency button pressed"}.${contextMsg}\n\nPlease check on them immediately. — Aarogya- Mitra`
 
     const deliveryResults: any[] = []
 

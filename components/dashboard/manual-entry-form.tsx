@@ -79,9 +79,9 @@ export function ManualEntryForm({ onSubmit }: ManualEntryFormProps) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             {fields.map((field) => (
-              <div key={field.name} className="space-y-1.5">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                  {field.label} {field.required && <span className="text-destructive">*</span>}
+              <div key={field.name} className="space-y-2">
+                <label className="text-xs font-black uppercase tracking-widest text-foreground/80">
+                  {field.label} {field.required && <span className="text-destructive font-bold">*</span>}
                 </label>
                 <Input
                   type="number"
@@ -91,7 +91,7 @@ export function ManualEntryForm({ onSubmit }: ManualEntryFormProps) {
                   placeholder={field.placeholder}
                   required={field.required}
                   step="any"
-                  className="bg-secondary/50 border-white/5 rounded-xl h-10 text-sm focus:ring-primary/20"
+                  className="bg-secondary/80 border-white/10 rounded-xl h-12 text-base font-medium focus:ring-primary/40 focus:border-primary/40 placeholder:text-muted-foreground/50 transition-all"
                 />
               </div>
             ))}

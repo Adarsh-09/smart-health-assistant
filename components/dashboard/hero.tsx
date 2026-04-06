@@ -53,11 +53,11 @@ export function Hero() {
   }
 
   const features = [
-    { icon: Activity, label: "Fitness Activity", gradient: "from-blue-500 to-cyan-400" },
-    { icon: Heart, label: "Heart Rate", gradient: "from-red-500 to-pink-400" },
-    { icon: Moon, label: "Sleep", gradient: "from-indigo-500 to-purple-400" },
-    { icon: Watch, label: "Smartwatch", gradient: "from-emerald-500 to-green-400" },
-    { icon: Shield, label: "Emergency", gradient: "from-red-600 to-orange-400" },
+    { icon: Activity, label: "Fitness Activity", gradient: "from-blue-500 to-cyan-400", href: "#fitness-activity" },
+    { icon: Heart, label: "Heart Rate", gradient: "from-red-500 to-pink-400", href: "#health-charts" },
+    { icon: Moon, label: "Sleep", gradient: "from-indigo-500 to-purple-400", href: "#health-charts" },
+    { icon: Watch, label: "Smartwatch", gradient: "from-emerald-500 to-green-400", href: "#dashboard" },
+    { icon: Shield, label: "Emergency", gradient: "from-red-600 to-orange-400", href: "#emergency-portal" },
   ]
 
   return (
@@ -129,8 +129,10 @@ export function Hero() {
                 Start Tracking <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </Button>
-            <Button variant="ghost" size="lg" className="rounded-full font-semibold">
-              Learn more <span aria-hidden="true" className="ml-2">→</span>
+            <Button variant="ghost" size="lg" className="rounded-full font-semibold" asChild>
+              <a href="#dashboard">
+                Learn more <span aria-hidden="true" className="ml-2">→</span>
+              </a>
             </Button>
           </motion.div>
         </div>
@@ -142,28 +144,30 @@ export function Hero() {
           <div className="relative -m-2 rounded-xl bg-muted/50 p-2 ring-1 ring-inset ring-border lg:-m-4 lg:rounded-2xl lg:p-4 glass perspective">
             <div className="flex justify-around py-8 sm:py-12">
               {features.map((feat) => (
-                <motion.div
-                  key={feat.label}
-                  whileHover={{ scale: 1.15, y: -4 }}
-                  className="flex flex-col items-center gap-2 cursor-pointer"
-                >
+                <a key={feat.label} href={feat.href} className="group outline-none">
                   <motion.div
-                    animate={{
-                      y: [0, -8, 0],
-                      scale: [1, 1.05, 1],
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: Math.random() * 2, // Staggered floating effect
-                    }}
-                    className={`p-3 rounded-2xl bg-gradient-to-br ${feat.gradient} shadow-lg`}
+                    whileHover={{ scale: 1.15, y: -4 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex flex-col items-center gap-2 cursor-pointer"
                   >
-                    <feat.icon className="h-8 w-8 text-white" />
+                    <motion.div
+                      animate={{
+                        y: [0, -8, 0],
+                        scale: [1, 1.05, 1],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: Math.random() * 2, // Staggered floating effect
+                      }}
+                      className={`p-3 rounded-2xl bg-gradient-to-br ${feat.gradient} shadow-lg group-hover:glow transition-all`}
+                    >
+                      <feat.icon className="h-8 w-8 text-white" />
+                    </motion.div>
+                    <span className="text-sm font-medium group-hover:text-primary transition-colors">{feat.label}</span>
                   </motion.div>
-                  <span className="text-sm font-medium">{feat.label}</span>
-                </motion.div>
+                </a>
               ))}
             </div>
           </div>

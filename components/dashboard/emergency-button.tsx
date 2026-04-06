@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { AlertTriangle, Loader2, CheckCircle2, X, Siren } from "lucide-react"
+import { AlertTriangle, Loader2, CheckCircle2, X, Siren, PhoneForwarded } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import type { HealthData } from "@/app/api/data/route"
 
@@ -45,14 +45,31 @@ export function EmergencyButton({ healthData }: EmergencyButtonProps) {
   }
 
   return (
-    <>
+    <div className="space-y-4">
+      {/* Primary: Direct Call to Ambulance */}
+      <motion.div 
+        whileHover={{ scale: 1.02 }} 
+        whileTap={{ scale: 0.98 }}
+        className="w-full"
+      >
+        <a 
+          href="tel:108" 
+          className="flex h-16 w-full items-center justify-center gap-3 rounded-2xl bg-red-600 hover:bg-red-700 text-white shadow-[0_0_40px_rgba(239,68,68,0.4)] border-2 border-white/20 text-lg font-black tracking-widest uppercase transition-all animate-radar-pulse"
+        >
+          <PhoneForwarded className="h-6 w-6" />
+          Call Ambulance (108)
+        </a>
+      </motion.div>
+
+      {/* Secondary: Alert Contacts via SMS */}
       <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
         <Button
           onClick={() => setShowConfirm(true)}
-          className="w-full h-14 rounded-2xl bg-red-600 hover:bg-red-700 text-white shadow-[0_0_30px_rgba(239,68,68,0.3)] border-2 border-red-500/30 text-base font-bold tracking-tight transition-all"
+          variant="outline"
+          className="w-full h-12 rounded-2xl glass border-white/10 hover:border-red-500/50 hover:bg-red-500/5 text-sm font-bold text-muted-foreground transition-all"
         >
-          <Siren className="h-5 w-5 mr-2" />
-          Emergency Help
+          <Siren className="h-4 w-4 mr-2" />
+          Alert Emergency Contacts
         </Button>
       </motion.div>
 
@@ -134,6 +151,6 @@ export function EmergencyButton({ healthData }: EmergencyButtonProps) {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   )
 }

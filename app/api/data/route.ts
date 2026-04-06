@@ -55,7 +55,7 @@ export async function GET() {
     const db = await getDb()
     if (db) {
       const user = await db.collection("users").findOne({ userId: DEFAULT_USER_ID })
-      isGoogleFitConnected = !!user?.googleTokens?.refreshToken
+      isGoogleFitConnected = !!user?.googleFitConnected
 
       const stored = await db
         .collection("healthData")

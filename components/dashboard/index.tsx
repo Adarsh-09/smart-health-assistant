@@ -14,6 +14,7 @@ import { ConnectWatch } from "./connect-watch"
 import { ManualEntryForm } from "./manual-entry-form"
 import { EmergencyContacts } from "./emergency-contacts"
 import { EmergencyButton } from "./emergency-button"
+import { NearbyHospitals } from "./nearby-hospitals"
 import { ScrollSection, ScrollStagger } from "@/components/scroll-sections"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Wifi, ClipboardEdit, Cpu } from "lucide-react"
@@ -124,7 +125,7 @@ export function Dashboard() {
         </ScrollStagger>
       </ScrollSection>
 
-      <motion.div variants={itemVariants} id="vitality-metrics" className="scroll-mt-24">
+      <motion.div variants={itemVariants} id="fitness-activity" className="scroll-mt-24">
         <MetricCards
           heartRate={data.heartRate}
           steps={data.steps}
@@ -171,7 +172,7 @@ export function Dashboard() {
       )}
 
       {/* Charts */}
-      <ScrollSection animation="fade-up">
+      <ScrollSection id="health-charts" animation="fade-up" className="scroll-mt-24">
         <ScrollStagger className="grid gap-6 lg:grid-cols-3" stagger={0.1}>
           <HeartRateChart data={data.heartRateHistory} />
           <StepsChart data={data.stepsHistory} />
@@ -180,14 +181,19 @@ export function Dashboard() {
       </ScrollSection>
 
       {/* Emergency Section */}
-      <ScrollSection animation="scale">
-        <ScrollStagger className="grid gap-6 lg:grid-cols-2" stagger={0.15}>
-          <EmergencyContacts />
-          <div className="space-y-4">
-            <EmergencyButton healthData={data} />
-            <p className="text-xs text-center text-muted-foreground">
-              Pressing this button will alert all your emergency contacts with your current health status.
-            </p>
+      <ScrollSection id="emergency-portal" animation="scale" className="scroll-mt-24">
+        <ScrollStagger className="grid gap-6" stagger={0.15}>
+          <div className="w-full">
+            <NearbyHospitals />
+          </div>
+          <div className="grid gap-6 lg:grid-cols-2">
+            <EmergencyContacts />
+            <div className="space-y-4">
+              <EmergencyButton healthData={data} />
+              <p className="text-xs text-center text-muted-foreground">
+                Pressing this button will alert all your emergency contacts with your current health status and location for immediate assistance.
+              </p>
+            </div>
           </div>
         </ScrollStagger>
       </ScrollSection>
